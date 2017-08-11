@@ -1,0 +1,41 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ TreeNode* help(ListNode* head,ListNode* tail){
+     if(head==tail)return NULL;
+     ListNode* fast = head;
+     ListNode* slow = head;
+     while(fast!=tail&&fast->next!=tail){ //this will find out the mid of passed list.
+         fast = fast->next->next;
+         slow= slow->next;
+     }
+     TreeNode * root = new TreeNode(slow->val);
+     root->left = help(head,slow);
+     root->right = help(slow->next, tail);
+     return root;
+     
+     
+ }
+TreeNode* Solution::sortedListToBST(ListNode* root) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+     if(root==NULL) return NULL;
+     return help(root,NULL);
+
+}

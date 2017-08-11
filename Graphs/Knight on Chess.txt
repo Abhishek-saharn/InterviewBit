@@ -1,0 +1,73 @@
+int Solution::knight(int M, int N, int x1, int y1, int x2, int y2) {
+    x1--;
+    x2--;
+    y1--;
+    y2--;
+    queue<pair<pair<int, int >,int > > q;
+    q.push(make_pair(make_pair(x1,y1),0));
+    vector<vector<int> > marked(M,vector<int>(N,0));
+    
+    marked[x1][y1]=1;
+    int steps=0;
+    while(!q.empty()){
+        //cout<<"Qsize="<<q.size()<<" ";
+        pair<int,int > p=q.front().first;
+        int dist = q.front().second;
+        q.pop();
+        
+        // cout<<p.first<<p.second;
+            int i=p.first;
+            int j=p.second;
+            
+            if(i==x2&&j==y2){
+                return dist;
+            }
+            // cout<<"Im at step:"<<i<<" "<<j<<"    ";
+            if(i>0&&j>1&&marked[i-1][j-2]==0){
+                q.push(make_pair(make_pair(i-1,j-2),dist+1));
+                marked[i-1][j-2]=1;
+                // cout<<i-1<<" "<<j-2<<"Added in queue   ";
+          
+            }
+            if(i<M-1&&j>1&&marked[i+1][j-2]==0){
+                q.push(make_pair(make_pair(i+1,j-2),dist+1));
+                marked[i+1][j-2]=1;
+                // cout<<i+1<<" "<<j-2<<"Added in queue   ";
+            }
+            if(i>1&&j>0&&marked[i-2][j-1]==0){
+                q.push(make_pair(make_pair(i-2,j-1),dist+1));
+                marked[i-2][j-1]=1;
+                                // cout<<i-2<<" "<<j-1<<"Added in queue   ";
+            }
+            if(i<M-2&&j>0&&marked[i+2][j-1]==0){
+                q.push(make_pair(make_pair(i+2,j-1),dist+1));
+                marked[i+2][j-1]=1;
+                                // cout<<i+2<<" "<<j-1<<"Added in queue   ";
+            }
+            if(i>1&&j<N-1&&marked[i-2][j+1]==0){
+                q.push(make_pair(make_pair(i-2,j+1),dist+1));
+                marked[i-2][j+1]=1;
+                // cout<<i-2<<" "<<j+1<<"Added in queue   ";
+            }
+            if(i<M-2&&j<N-1&&marked[i+2][j+1]==0){
+                q.push(make_pair(make_pair(i+2,j+1),dist+1));
+                marked[i+2][j+1]=1;
+                    // cout<<i+2<<" "<<j+1<<"Added in queue   ";
+            }
+            if(i>0&&j<N-2&&marked[i-1][j+2]==0){
+                q.push(make_pair(make_pair(i-1,j+2),dist+1));
+                marked[i-1][j+2]=1;
+                            // cout<<i-1<<" "<<j+2<<"Added in queue   ";
+            }
+            if(i<M-1&&j<N-2&&marked[i+1][j+2]==0){
+                q.push(make_pair(make_pair(i+1,j+2),dist+1));
+                marked[i+1][j+2]=1;
+                                // cout<<i+1<<" "<<j+2<<"Added in queue   ";
+            }
+           
+        
+    
+    }
+    //cout<<"Out of while";
+    return -1;
+}

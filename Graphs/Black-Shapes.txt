@@ -1,0 +1,94 @@
+// void bfs(vector<string> &v,vector<vector<int> > &visit,int i,int j){
+    
+//     queue<pair<int,int> > q;
+//     //vector<int > vq;
+//     int n=v.size(),m=v[0].size();
+//   pair<int,int > p;
+//   p.first=i;
+//   p.second=j;
+//     q.push(p);
+//     while(!q.empty()){
+//         int ii=q.front().first,jj=q.front().second;
+//         visit[ii][jj]=1;
+//         q.pop();
+//         if(ii>0&&visit[ii-1][jj]==0&&v[ii-1][jj]=='X'){
+//              p.first=ii-1;
+//              p.second=jj;
+//             q.push(p);
+            
+//         }if(ii<n-1&&visit[ii+1][jj]==0&&v[ii+1][jj]=='X'){
+                    
+//             p.first=ii+1;
+//              p.second=jj;
+//             q.push(p);
+
+            
+//         }if(jj>0&&visit[ii][jj-1]==0&&v[ii][jj-1]=='X'){
+//             p.first=ii;
+//              p.second=jj-1;
+//             q.push(p);
+//         }if(jj<m-1&&visit[ii][jj+1]==0&&v[ii][jj+1]=='X'){
+//             p.first=ii;
+//              p.second=jj+1;
+//             q.push(p);
+//         }
+        
+//     }
+    
+// }
+
+// int Solution::black(vector<string> &v) {
+        
+//       int r=v.size(),c=v[0].size();      
+//         int count=0;
+//       vector<vector<int> > visit(r,vector<int >(c,0));
+      
+//       for(int i=0;i<r;i++){
+//           for(int j=0;j<c;j++){
+//               if(v[i][j]=='X'&&visit[i][j]==0){
+//                   bfs(v,visit,i,j);
+//                   count++;
+//               }
+//           }
+//       }
+//       return count;
+// }
+
+
+
+
+///////////////************Using DFS******************/////////////////////////////
+void dfs(vector<string> &v,vector<vector<int> > &visit,int i,int j){
+    int n=v.size(),m=v[0].size();
+    visit[i][j]=1;
+    if(v[i][j]!='X')return;
+    if(i>0&&visit[i-1][j]==0){
+        dfs(v,visit,i-1,j);
+    }
+    if(i<n-1&&visit[i+1][j]==0){
+        dfs(v,visit,i+1,j);
+    }
+    if(j>0&&visit[i][j-1]==0){
+        dfs(v,visit,i,j-1);
+    }
+    if(j<m-1&&visit[i][j+1]==0){
+        dfs(v,visit,i,j+1);
+    }
+}
+
+int Solution::black(vector<string> &v) {
+        
+       int r=v.size(),c=v[0].size();      
+        int count=0;
+       vector<vector<int> > visit(r,vector<int >(c,0));
+      
+       for(int i=0;i<r;i++){
+           for(int j=0;j<c;j++){
+               if(v[i][j]=='X'&&visit[i][j]==0){
+                   dfs(v,visit,i,j);
+                   count++;
+               }
+           }
+       }
+       return count;
+}

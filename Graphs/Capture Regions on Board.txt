@@ -1,0 +1,55 @@
+void dfs(vector<vector<char>>& b,vector<vector<int>>& marked,int i,int j,int m,int n){
+      
+        
+        b[i][j]='1';
+        marked[i][j]=1;    
+        
+        if(i>0&&marked[i-1][j]==0&&b[i-1][j]=='O'){
+            dfs(b,marked,i-1,j,m,n);   
+        }
+       if(j>0&&marked[i][j-1]==0&&b[i][j-1]=='O'){
+            dfs(b,marked,i,j-1,m,n);   
+        }
+       if(i<m-1&&marked[i+1][j]==0&&b[i+1][j]=='O'){
+            dfs(b,marked,i+1,j,m,n);   
+        }
+        if(j<n-1&&marked[i][j+1]==0&&b[i][j+1]=='O'){
+            dfs(b,marked,i,j+1,m,n);   
+        }
+        
+        
+        return;
+    }
+
+void Solution::solve(vector<vector<char> > &board) {
+        
+         if(board.size()==0){
+            return ;
+        }
+        int m,n;
+        m = board.size();
+        n = board[0].size();
+        
+        vector<vector<int>> marked(m,vector<int >(n,0));
+        
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i==0||j==0||i==m-1||j==n-1){
+                     if(board[i][j]=='O'&&marked[i][j]==0){
+                        dfs(board,marked,i,j,m,n);
+                    }
+
+                }
+                
+            }
+        }
+        
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(board[i][j]=='O')board[i][j]='X';
+                else if(board[i][j]=='1')board[i][j]='O';
+            }
+        }
+        
+    
+}
